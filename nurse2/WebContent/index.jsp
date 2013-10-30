@@ -8,7 +8,7 @@
 	<body>
 		<h1>Welcome GitHub</h1>
 		<div>
-			<h3>자 시작 합시다.</h3>
+			<h3>자 시작 합시다. 그럴까?</h3>
 		</div>
 	</body>
 </html>
