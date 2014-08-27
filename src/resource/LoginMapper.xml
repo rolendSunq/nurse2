@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="myLoginMapper">
+	<resultMap id="resultMaploginVO" type="nurse.login.model.LoginVO">
+		<id column="jOBNO" property="jobno" javaType="java.lang.Integer"/>
+		<result column="NAME" property="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column="DEPTNO" property="dno" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+		<result column="ID" property="id" javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column="PWD" property="pwd" javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column="PHONE" property="phone" javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column="TELECOM" property="telecom" javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column="CELLPHONE" property="cellphone" javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column="STATE" property="state" javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column="PHOTO" property="photo" javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column="SSN" property="ssn" javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column="SEX" property="sex" javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column="ZIPCODE" property="zipcode" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+		<result column="ADDRESS1" property="address1" javaType="java.lang.String" jdbcType="VARCHAR"/>	
+		<result column="ADDRESS2" property="address2" javaType="java.lang.String" jdbcType="VARCHAR"/>	
+		<result column="HIREDATE" property="hiredate" javaType="java.lang.String" jdbcType="VARCHAR"/>	
+		<result column="CERTNUM" property="certnum" javaType="java.lang.String" jdbcType="VARCHAR"/>	
+		<result column="BIRTHDAY" property="birthday" javaType="java.lang.String" jdbcType="VARCHAR"/>	
+		<result column="FIREDATE" property="firedate" javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column="DOWORK" property="dowork" javaType="java.lang.String" jdbcType="VARCHAR"/>		
+	</resultMap>
+	
+	<resultMap type="nurse.login.model.MenuAuthVO" id="menuAuthVO"></resultMap>
+	<select id="nurse.login.dao.LoginDAO.findByIDnPWD" parameterType="nurse.login.model.LoginVO" resultType="INTEGER">
+		select count(*) from NURSE where ID = #{id} and PWD = #{pwd}
+	</select>
+	
+	<select id="nurse.login.dao.LoginDAO.findJobNOnNameByIDnPWD" parameterType="nurse.login.model.LoginVO" resultMap="resultMaploginVO">
+		select * from NURSE where ID = #{id} and PWD = #{pwd}
+	</select>
+	
+	<select id="nurse.login.dao.LoginDAO.findMenuAuthByJobno" parameterType="INTEGER" resultMap="menuAuthVO">
+		select MENUNO from MENUAUTH where JOBNO = #{jobno}
+	</select>
+</mapper>	

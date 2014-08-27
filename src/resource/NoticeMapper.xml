@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="noticeList">
+	<resultMap type="Notice" id="noticeResultMap">
+		<id column="sno" property="sno" javaType="java.lang.String"
+			jdbcType="INTEGER" />
+		<result column="name" property="name" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result column="subject" property="subject" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result column="readcount" property="readcount" javaType="java.lang.String"
+			jdbcType="INTEGER" />
+		<result column="gno" property="gno" javaType="java.lang.String"
+			jdbcType="INTEGER" />
+		<result column="srtno" property="srtno" javaType="java.lang.String"
+			jdbcType="INTEGER" />
+		<result column="gap" property="gap" javaType="java.lang.String"
+			jdbcType="INTEGER" />
+		<result column="regdate" property="regdate" javaType="java.lang.String"
+			jdbcType="TIMESTAMP" />
+		<result column="content" property="content" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result column="flag" property="flag" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result column="jobno" property="jobno" javaType="java.lang.String"
+			jdbcType="INTEGER" />
+		<result column="fno" property="fno" javaType="java.lang.String"
+			jdbcType="INTEGER" />
+		<result column="filename" property="filename" javaType="java.lang.String"
+			jdbcType="INTEGER" />
+	</resultMap>
+
+
+	<select id="nurse.notice.dao.NoticeDao.getNoticeList"
+		parameterType="Notice" resultMap="noticeResultMap">
+		select * from (
+		select rownum rnum, a.* from (
+		select * from notice where flag='0' order by gno desc, srtno asc
+		) a
+		)
+		where 1=1
+		and rnum &gt;= #{start,javaType=java.lang.Integer,jdbcType=INTEGER}
+		and rnum &lt;= #{end,javaType=java.lang.Integer,jdbcType=INTEGER}
+		 
+	</select>
+	<select id="nurse.notice.dao.NoticeDao.getNoticeList2"
+		parameterType="Notice" resultMap="noticeResultMap">
+		select * from notice
+		where 1=1
+		and flag='1' and srtno='1'
+		order by gno desc
+	</select>	
+	<select id="nurse.notice.dao.NoticeDao.getNoticeList3"
+		parameterType="Notice" resultMap="noticeResultMap">
+		select * from (
+		select rownum rnum, a.* from (
+		select * from notice where flag='1' order by gno desc, srtno asc
+		) a
+		)
+		where 1=1
+		and rnum &gt;= #{start,javaType=java.lang.Integer,jdbcType=INTEGER}
+		and rnum &lt;= #{end,javaType=java.lang.Integer,jdbcType=INTEGER}
+		 
+	</select>
+	<insert id="nurse.notice.dao.NoticeDao.insertArticle"
+		parameterType="Notice">
+		insert into notice(
+		sno, name, subject, readcount,gno,
+		srtno, gap,regdate, content,flag ,jobno )
+		values(#{sno},#{name},#{subject},
+		#{readcount},#{sno},#{srtno},#{gap}, sysdate, #{content}, #{flag} ,#{jobno})
+
+	</insert>
+	<insert id="nurse.notice.dao.NoticeDao.insertArticlePlus"
+		parameterType="Notice">
+		insert into notice(
+		sno, name, subject, readcount,gno,
+		srtno, gap,regdate, content,flag , jobno)
+		values(#{sno},#{name},#{subject},
+		#{readcount}, #{gno}, #{srtno}, #{gap}, sysdate, #{content} , #{flag} , #{jobno})
+	</insert>
+
+	<select id="nurse.notice.dao.NoticeDao.getNoticeArticle"
+		parameterType="String" resultMap="noticeResultMap">
+		select * from notice
+		where 1=1
+		and
+		sno=#{sno,javaType=java.lang.String,jdbcType=NUMERIC}
+	</select>
+
+	<select id="nurse.notice.dao.NoticeDao.getNoticeCount" resultType="Integer">
+		select count(sno) from notice where flag='0'
+	</select>
+	<select id="nurse.notice.dao.NoticeDao.getNoticeCount2"
+		resultType="int">
+		select count(sno) cnt from notice
+		where 1='1'
+		and flag='1'
+	</select>	
+	<select id="nurse.notice.dao.NoticeDao.getTotalCount" resultType="Integer">
+		select count(sno) from notice where 1=1
+	</select>
+	<update id="nurse.notice.dao.NoticeDao.plusArticleCount"
+		parameterType="String">
+		update notice set readcount=readcount+1
+		where 1=1
+		and sno=#{sno,javaType=java.lang.String,jdbcType=NUMERIC}
+	</update>
+
+	<delete id="nurse.notice.dao.NoticeDao.deleteNoticeArticle"
+		parameterType="Notice">
+		delete notice where 1=1
+		and
+		sno=#{sno,javaType=java.lang.String,jdbcType=NUMERIC}
+	</delete>
+
+	<update id="nurse.notice.dao.NoticeDao.updateNoticeArticle"
+		parameterType="Notice">
+		update notice set
+		subject=#{subject},content=#{content}
+		where 1=1
+		and sno=#{sno,javaType=java.lang.String,jdbcType=NUMERIC}
+	</update>
+	<update id="nurse.notice.dao.NoticeDao.updateSameGroupSrtno"
+		parameterType="Notice">
+		update notice set
+		srtno=srtno+1
+		where 1=1
+		and gno=#{gno,javaType=java.lang.String,jdbcType=NUMERIC}
+		and srtno &gt;= #{srtno,javaType=java.lang.String,jdbcType=NUMERIC}
+	</update>
+
+	<select id="nurse.notice.dao.NoticeDao.getMaxNum" resultType="int">
+		select max(sno)+1 maxno from notice
+	</select>
+
+</mapper>	

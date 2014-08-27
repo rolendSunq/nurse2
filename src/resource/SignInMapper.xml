@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+	<mapper namespace="signInMapper">
+		<resultMap type="nurse.signin.model.SignInVO" id="signInVO">
+			<id column="JOBNO" property="jobno"/>
+			<result column="ID" property="id"/>
+			<result column="NAME" property="name"/>
+			<result column="PWD" property="pwd" />
+			<result column="EMAIL" property="email" />
+			<result column="PHONE" property="phone" />
+			<result column="CELLPHONE" property="cellphone" />
+			<result column="SSN" property="ssn" />
+			<result column="SEX" property="sex" />
+			<result column="BIRTHDAY" property="birthday" />
+			<result column="ZIPCODE" property="zipcode" />
+			<result column="ADDRESS1" property="address1"/>
+			<result column="ADDRESS2" property="address2"/>
+		</resultMap>
+
+		<!-- ID 중복 검사 -->
+		<select id="nurse.signin.dao.SignInDAO.idCheck" parameterType="String" resultType="int">
+			select count(ID) from NURSE where ID = #{id}
+		</select>
+		<!-- PWD 중복 검사 -->
+		<select id="nurse.signin.dao.SignInDAO.ssnCheck" parameterType="String" resultType="int">
+			select count(SSN) from NURSE where SSN = #{ssn}
+		</select>
+		<!-- EMAIL 중복 검사 -->
+		<select id="nurse.signin.dao.SignInDAO.emailCheck" parameterType="String" resultType="int">
+			select count(EMAIL) from NURSE where EMAIL = #{email}
+		</select>
+		<!-- 가장 최근의 jobno -->
+		<select id="nurse.signin.dao.SignInDAO.newestJobno" resultType="int">
+			select MAX(JOBNO) from NURSE
+		</select>
+		<!-- insert member -->
+		<insert id="nurse.signin.dao.SignInDAO.insertMember" parameterType="nurse.signin.model.SignInVO">
+			insert into NURSE (JOBNO, NAME, ID, PWD, EMAIL, PHONE, CELLPHONE, SSN, SEX, ZIPCODE, ADDRESS1, ADDRESS2, BIRTHDAY)
+			values(#{jobno}, #{name}, #{id}, #{pwd}, #{email}, #{phone}, #{cellphone}, #{ssn}, #{sex}, #{zipcode}, #{address1}, #{address2}, #{birthday})
+		</insert>
+	</mapper>

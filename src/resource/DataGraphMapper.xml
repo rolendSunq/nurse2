@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+	
+<mapper namespace="Datagraphlist">
+	<resultMap type="DataGraph" id="DataGraphResultMap">
+		<id column="SNO" property="sno" />
+		<result column="TITLE" property="title" />
+		<result property="startdate" column="STARTDATE" />
+        <result property="enddate" column="ENDDATE" />
+        <result property="day" column="DAY" />
+        <result property="evening" column="EVENING" />
+        <result property="night" column="NIGHT" />
+        <result property="work" column="WORK" />
+	</resultMap>
+
+	<select id="nurse.schedule.dao.ScheduleMapper.getDataGraphList" parameterType="DataGraph" resultMap="DataGraphResultMap">
+		select title, count(day) day, count(evening) evening, count(night) night, count(work) work
+from (
+    select title, 
+           CASE  
+                when type=1 then 1 
+                end
+           day,
+           CASE  
+                when type=2 then 1 
+                end
+            evening,
+           CASE  
+                when type=3 then 1 
+                end
+           night,
+           CASE  
+                when title is not null then 1 
+                end
+           work
+    from schedule
+	<!-- where startdate &gt;= 201311010000 and enddate &lt;= 201311302400 -->
+	where startdate &gt;= #{startdate} and enddate &lt;= #{enddate}
+)
+group by title
+	</select>
+</mapper>

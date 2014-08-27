@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//WebContent/WEB-INF/jsp/emp/_edit.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/emp/_list.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/schedule/_calendar.jsp=UTF-8
+encoding//WebContent/assets/css/calendar/fullcalendar.css=UTF-8
+encoding//docs/Top\ menu.txt=UTF-8
+encoding//docs/emp_ref.txt=UTF-8
+encoding//src/nurse/board/service/impl/BoardServiceImpl.java=UTF-8
+encoding//src/nurse/board/vo/Board.java=UTF-8
+encoding/<project>=UTF-8

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+	
+<mapper namespace="boardlist">
+	<resultMap type="Board" id="boardResultMap">
+		<id column="jobno" property="jobno" javaType="java.lang.String" jdbcType="INTEGER"/>
+		<result column="WRITER" property="writer" javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column="EMAIL" property="email" javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column="SUBJECT" property="subject" javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column="PASS" property="pass" javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column="READCOUNT" property="readcount" javaType="java.lang.String" jdbcType="INTEGER"/>
+		<result column="REF" property="ref" javaType="java.lang.String" jdbcType="INTEGER"/>
+		<result column="STEP" property="step" javaType="java.lang.String" jdbcType="INTEGER"/>
+		<result column="DEPTH" property="depth" javaType="java.lang.String" jdbcType="INTEGER"/>
+		<result column="REGDATE" property="regdate" javaType="java.lang.String" jdbcType="TIMESTAMP"/>
+		<result column="CONTENT" property="content" javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column="IP"     	property="ip" javaType="java.lang.String" jdbcType="VARCHAR"/>	
+		<result column="name" 	property="name" />
+		<result column="dno"    	property="dno" />
+		<result column="id"      	property="id" />
+		<result column="pwd"       property="pwd" />
+		<result column="phone"     property="phone" />
+		<result column="telecom" 	property="telecom" />
+		<result column="cellphone" 	property="cellphone" />
+		<result column="state" 			property="state" />
+		<result column="photo" 			property="photo" />
+		<result column="ssn" 				property="ssn" />
+		<result column="zipcode" 		property="zipcode" />
+		<result column="address1" 		property="address1"/>	
+		<result column="address2" 		property="address2" />	
+		<result column="hiredate" 		property="hiredate" />	
+		<result column="certnum" 		property="certnum" />	
+		<result column="birthday" 		property="birthday"/>	
+		<result column="firedate" 		property="firedate" />
+		<result column="dowork" 				property="dowork" />		
+		<result column="manager" 			property="manager" />	
+		<result column="menuno"			property="menuno" />
+	</resultMap>
+
+	<select id="nurse.board.dao.BoardDao.getBoardList" parameterType="Board" resultMap="boardResultMap">
+    	select * from (
+			select rownum rnum, a.* from ( 
+				select * from board order by gno desc, srtno asc 
+			) a
+		)
+		where rnum &gt;= #{start,javaType=java.lang.Integer,jdbcType=INTEGER} 
+		and rnum &lt;= #{end,javaType=java.lang.Integer,jdbcType=INTEGER}
+	</select>
+	<select id="nurse.board.dao.BoardDao.getEmpMenuauthList" parameterType="Board" resultMap="boardResultMap">
+		select * from menuauth where 1=1 and jobno=#{jobno}
+	</select>
+	<!--바로 아래 구문은 조회하여 나온데이터를 보내주는 구문  -->
+	<select id="nurse.board.dao.BoardDao.getEmpList" parameterType="Board" resultMap="boardResultMap">
+    	 select * from (
+			select rownum rnum, a.* from ( 
+				select * from nurse order by jobno desc
+			) a
+		)
+		where rnum &gt;= #{start} 
+		and rnum &lt;= #{end}
+	</select>
+	
+	<insert id="nurse.board.dao.BoardDao.insertArticle" parameterType="Board">
+		insert into board(
+		num, writer, email, subject, pass, 
+		readcount,ref, step, depth, regdate, 
+		content, ip,
+		gno, ccnt, srtno, gap, filename) 
+		values(board_seq.NEXTVAL,#{writer},#{email},#{subject},#{pass},
+		#{readcount},#{ref},#{step},#{depth}, sysdate,
+		#{content},#{ip},
+		board_seq.NEXTVAL,#{ccnt},#{srtno},#{gap}, #{filename})
+	</insert>
+	<insert id="nurse.board.dao.BoardDao.empInsertArticle" parameterType="Board">
+		insert into nurse values
+( #{jobno},#{name},#{dno},#{id},#{pwd},#{email},#{phone},#{telecom},#{cellphone},#{state},#{photo},#{ssn},
+#{sex},#{zipcode},#{address1},#{address2},#{hiredate},#{certnum},#{birthday},#{firedate},#{dowork},#{manager}) 
+	</insert>
+	<insert id="nurse.board.dao.BoardDao.empInsetauth" parameterType="Board">
+		insert into menuauth values(#{jobno},#{menuno})
+	</insert>
+	
+	
+	
+	<insert id="nurse.board.dao.BoardDao.insertArticlePlus" parameterType="Board">
+		insert into board(
+		num, writer, email, subject, pass, 
+		readcount,ref, step, depth, regdate, 
+		content, ip,
+		gno, ccnt, srtno, gap, filename) 
+		values(board_seq.NEXTVAL,#{writer},#{email},#{subject},#{pass},
+		#{readcount},#{ref},#{step},#{depth}, sysdate,
+		#{content},#{ip},
+		#{gno},#{ccnt},#{srtno},#{gap}, #{filename})
+	</insert>
+	
+	<select id="nurse.board.dao.BoardDao.getBoardArticle" parameterType="String" resultMap="boardResultMap">
+		select * from board
+		where 1=1
+		and num=#{num,javaType=java.lang.String,jdbcType=NUMERIC}
+	</select>
+	<select id="nurse.board.dao.BoardDao.getEmpArticle" parameterType="String" resultMap="boardResultMap">
+		select * from nurse
+		where 1=1
+		and jobno=#{jobno}
+	</select>
+	<select id="nurse.board.dao.BoardDao.getBoardCount" resultType="int">
+		select count(num) cnt from board
+	</select>
+	<select id="nurse.board.dao.BoardDao.getEmpCount" resultType="int">
+		select count(jobno) cnt from nurse
+	</select>
+	
+	<update id="nurse.board.dao.BoardDao.plusArticleCount" parameterType="String">
+		update board set readcount=readcount+1
+		where 1=1
+		and num=#{num,javaType=java.lang.String,jdbcType=NUMERIC}
+	</update>
+	<update id="nurse.board.dao.BoardDao.deleteEmpArticle" parameterType="Board">
+		update nurse set 
+		#{jobno},#{name},#{dno},#{id},#{pwd},#{email},#{phone},#{telecom},#{cellphone},#{state},#{photo},#{ssn},
+		#{sex},#{zipcode},#{address1},#{address2},#{hiredate},#{certnum},#{birthday},#{firedate},#{dowork},#{manager} 
+		where 1=1
+		and jobno=#{jobno}
+	</update>
+	
+	<delete id="nurse.board.dao.BoardDao.deleteBoardArticle" parameterType="Board">
+		delete board where 1=1
+		and num=#{num,javaType=java.lang.String,jdbcType=NUMERIC}
+		and pass=#{pass,javaType=java.lang.String,jdbcType=VARCHAR}
+	</delete>
+	
+	
+	<update id="nurse.board.dao.BoardDao.updateBoardArticle" parameterType="Board">
+		update board set 
+		email=#{email}, subject=#{subject}, 
+		content=#{content}, ip=#{ip}
+		where 1=1
+		and num=#{num,javaType=java.lang.String,jdbcType=NUMERIC}
+		and pass=#{pass,javaType=java.lang.String,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="nurse.board.dao.BoardDao.updateEmpArticle" parameterType="Board">
+		update nurse set 
+		pwd=#{pwd}, dno=#{dno},state=#{state},address1=#{address1},address2=#{address2},zipcode=#{zipcode},
+		hiredate=#{hiredate},
+		birthday=#{birthday},
+		email=#{email},
+		phone=#{phone},
+		cellphone=#{cellphone},
+		photo =#{photo}	
+		where 1=1
+		and jobno=#{jobno}
+	</update>
+	<!--
+	<update id="nurse.board.dao.BoardDao.updateParentCcnt" parameterType="Board">
+		update board set 
+		ccnt=ccnt+1
+		where 1=1
+		and gno=#{gno,javaType=java.lang.String,jdbcType=NUMERIC}
+		and srtno &gt; #{srtno,javaType=java.lang.String,jdbcType=NUMERIC}
+		and gap &lt; #{gap,javaType=java.lang.String,jdbcType=NUMERIC}
+	</update>
+	-->
+	<update id="nurse.board.dao.BoardDao.updateSameGroupSrtno" parameterType="Board">
+		update board set 
+		srtno=srtno+1
+		where 1=1
+		and gno=#{gno,javaType=java.lang.String,jdbcType=NUMERIC}
+		and srtno &gt;= #{srtno,javaType=java.lang.String,jdbcType=NUMERIC}
+	</update>
+	
+	<select id="nurse.board.dao.BoardDao.getMaxNum" resultType="int">
+		select max(num)+1 num from board
+	</select>
+	<select id="nurse.board.dao.BoardDao.getEmpMaxNum" resultType="int">
+		select max(jobno)+1 num from nurse
+	</select>
+	<select id="nurse.board.dao.BoardDao.nurseIdcheck" resultType="int">
+		select count(id)  from nurse where id=#{id}
+	</select>
+	<delete id="nurse.board.dao.BoardDao.deleteAuth"  parameterType="Board" >
+		delete from menuauth where jobno=#{jobno}
+	</delete>
+	<select id="nurse.board.dao.BoardDao.nurseCercheck"  parameterType="String" resultType="INTEGER" >
+		select count(certnum)  from nurse where certnum=#{certnum}
+	</select>
+	
+	
+</mapper>	

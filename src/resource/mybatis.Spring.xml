@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<settings>
+		<setting name="safeRowBoundsEnabled" value="false" />
+	</settings>
+	
+	<typeAliases>
+		<typeAlias alias="DataGraph" type="nurse.nakil.vo.DataGraph" />
+		<typeAlias alias="Board" type="nurse.board.vo.Board" />
+		<typeAlias alias="Schedulemain" type="nurse.schedule.vo.Schedulemain" />
+		<typeAlias alias="Schedule" type="nurse.schedule.vo.Schedule" />
+		<typeAlias alias="ScheduleData" type="nurse.schedule.vo.ScheduleData" />
+		<typeAlias alias="ScheduleTable" type="nurse.schedule.vo.ScheduleTable" />
+		<typeAlias alias="Nurse" type="nurse.emp.vo.Nurse" />
+		<typeAlias alias="Notice" type="nurse.notice.vo.Notice" />
+		<typeAlias alias="UpFile" type="nurse.notice.vo.UpFile" />
+		<typeAlias alias="Emp" type="nurse.emp.vo.EmpVo" />
+	</typeAliases>
+	
+	<!-- xml 파일 mapping -->
+	<mappers>
+		<mapper resource="resource/DataGraphMapper.xml"/>
+		<mapper resource="resource/BoardMapper.xml"/>
+		<mapper resource="resource/ScheduleMapper.xml"/>
+		<mapper resource="resource/LoginMapper.xml"/>
+		<mapper resource="resource/NoticeMapper.xml"/>
+		<mapper resource="resource/UpFileMapper.xml"/>
+		<mapper resource="resource/LoginMapper.xml"/>
+		<mapper resource="resource/SignInMapper.xml"/>
+		<mapper resource="resource/ZipcodeMapper.xml"/>
+		<mapper resource="resource/EmpMapper.xml"/>
+		<mapper resource="resource/FindPersonMapper.xml"/>
+		<mapper resource="resource/PersonInfoMapper.xml"/>
+		
+	</mappers>
+	
+</configuration>

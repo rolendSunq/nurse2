@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="upfileList">
+	<resultMap type="UpFile" id="upfileResultMap">
+		<id column="sno" property="sno" javaType="java.lang.String"
+			jdbcType="INTEGER" />
+		<result column="filename" property="filename" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result column="fno" property="fno" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="nurse.notice.dao.NoticeDao.getFileList"
+		parameterType="UpFile" resultMap="upfileResultMap">
+		select filename from upfile
+		where 1=1 and sno=#{sno}
+	</select>
+	<select id="nurse.notice.dao.NoticeDao.getFileNum"
+		parameterType="UpFile" resultMap="upfileResultMap">
+		select sno from upfile
+		where 1=1 
+	</select>	
+
+	<insert id="nurse.notice.dao.NoticeDao.insertfile"
+		parameterType="UpFile">
+		insert into upfile(
+		sno, filename, fno )
+		values(#{sno},#{filename},#{fno} )
+	</insert>
+	<delete id="nurse.notice.dao.NoticeDao.deleteFile"
+		parameterType="UpFile">
+		delete upfile where 1=1
+		and
+		sno=#{sno}
+	</delete>
+	<update id="nurse.notice.dao.NoticeDao.fileUpdate"
+		parameterType="UpFile">
+		update upfile set 
+		filename=#{filename}
+		where 1=1
+		and sno=#{sno,javaType=java.lang.String,jdbcType=NUMERIC}
+	</update>
+
+</mapper>	

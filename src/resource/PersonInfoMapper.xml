@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="personInfo">
+	<select id="nurse.emp.dao.EmpDao.pwdCheck" parameterType="nurse.emp.vo.PwdVO" resultType="java.lang.Integer">
+		select count(pwd) from nurse where pwd = #{pwd} and id = #{id}
+	</select>
+	<update id="nurse.emp.dao.EmpDao.pwdUpdate" parameterType="nurse.emp.vo.PwdVO">
+		update nurse set pwd = #{rePwd} where id = #{id}
+	</update>
+	<select id="nurse.emp.dao.EmpDao.rePwdCheck" parameterType="nurse.emp.vo.PwdVO" resultType="int">
+		select count(pwd) from nurse where id = #{id} and pwd = #{rePwd}
+	</select>
+	<select id="nurse.emp.dao.EmpDao.emailUpdateCheck" parameterType="nurse.emp.vo.EmailVO" resultType="int">
+		select count(email) from nurse where id = #{id} and email = #{email}
+	</select>
+	<update id="nurse.emp.dao.EmpDao.emailUpdate" parameterType="nurse.emp.vo.EmailVO">
+		update nurse set email = #{email} where id = #{id}
+	</update>
+	<select id="nurse.emp.dao.EmpDao.phoneUpdateCheck" parameterType="nurse.emp.vo.PhoneVO" resultType="int">
+		select count(phone) from nurse where id = #{id} and phone = #{phone}
+	</select>
+	<update id="nurse.emp.dao.EmpDao.phoneUpdate" parameterType="nurse.emp.vo.PhoneVO">
+		update nurse set phone = #{phone} where id = #{id}
+	</update>
+	<select id="nurse.emp.dao.EmpDao.cellPhoneUpdateCheck" parameterType="nurse.emp.vo.PhoneVO" resultType="int">
+		select count(cellphone) from nurse where id = #{id} and cellphone = #{cellphone}
+	</select>
+	<update id="nurse.emp.dao.EmpDao.cellPhoneUpdate" parameterType="nurse.emp.vo.PhoneVO">
+		update nurse set cellphone = #{cellphone} where id = #{id}
+	</update>
+	<select id="nurse.emp.dao.EmpDao.addressUpdateCheck" parameterType="nurse.emp.vo.AddressVO" resultType="int">
+		select count(id) from nurse where address1 = #{address1} and address2 = #{address2}
+	</select>
+	<update id="nurse.emp.dao.EmpDao.addressUpdate" parameterType="nurse.emp.vo.AddressVO">
+		update nurse set zipcode = #{zipcode}, address1 = #{address1}, address2 = #{address2} where id = #{id}
+	</update>
+</mapper>

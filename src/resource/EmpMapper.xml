@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="empList">
+	<resultMap type="Emp" id="empResultMap">
+		<id column="jobno" property="jobno" />
+		<result column="email" property="email" />
+		<result column="certnum" property="certnum" />
+		<result column="name" 	property="name" />
+		<result column="dno"    	property="dno" />
+		<result column="id"      	property="id" />
+		<result column="pwd"       property="pwd" />
+		<result column="phone"     property="phone" />
+		<result column="telecom" 	property="telecom" />
+		<result column="cellphone" 	property="cellphone" />
+		<result column="state" 			property="state" />
+		<result column="photo" 			property="photo" />
+		<result column="ssn" 				property="ssn" />
+		<result column="zipcode" 		property="zipcode" />
+		<result column="address1" 		property="address1"/>	
+		<result column="address2" 		property="address2" />	
+		<result column="hiredate" 		property="hiredate" />	
+		<result column="certnum" 		property="certnum" />	
+		<result column="birthday" 		property="birthday"/>	
+		<result column="firedate" 		property="firedate" />
+		<result column="dowork" 				property="dowork" />		
+		<result column="manager" 			property="manager" />	
+		<result column="menuno"			property="menuno" />
+	</resultMap>
+
+		<!--면허번호 중복검사 쿼리  -->
+	<select id="nurse.emp.dao.EmpDao.certNumCheck" parameterType="Emp"
+		resultType="INTEGER">
+		select count(certnum) from
+		nurse where certnum=#{certnum}
+	</select>
+	<!--퇴사일 조회  -->
+	<select id="nurse.emp.dao.EmpDao.fireDateSelect" parameterType="Emp"
+		resultType="Emp">
+		select firedate from nurse where jobno=#{jobno}
+	</select>
+
+
+	<!--write 입력 순서:jobno/아이디/ 비번 /주민 /생일 /이름 /사진 /이메일 /성별 /우편번호 /기본주소 /상세주소 
+		/집전화 /핸드폰 /면허번호 /부서 /입사일 -->
+	<insert id="nurse.emp.dao.EmpDao.insertEmpWrite" parameterType="Emp">
+		insert into nurse(
+		jobno,id, pwd, ssn, birthday, name,
+		photo,email, sex,
+		zipcode, address1,
+		address2, phone,
+		cellphone, certnum, dno, hiredate)
+		values(#{jobno},#{id},#{pwd},#{ssn},#{birthday},
+		#{name},#{photo},#{email},#{sex}, #{zipcode},
+		#{address1},#{address2},
+		#{phone},#{cellphone},#{certnum},#{dno}, #{hiredate})
+	</insert>
+	<!--퇴사일 입력하는 쿼리  -->
+	<update id="nurse.emp.dao.EmpDao.fireDateNumCheck" parameterType="Emp">
+		update nurse set 
+		firedate=#{firedate}
+		where 1=1
+		and jobno=#{jobno}
+	</update>
+</mapper>

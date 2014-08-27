@@ -1,0 +1,239 @@
+@charset "utf-8";
+/* default */
+body,form,div,p,h1,h2,h3,h4,h5,h6,dl,dt,dd,ul,ol,li,fieldset,input,textarea,blockquote,th,td,select
+	{
+	margin: 0;
+	padding: 0;
+	color: #8f7d75;
+	font-family: '돋움', dotum, applegothic, sans-serif;
+	font-size: 12px
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0
+}
+
+em,cite,address {
+	font-style: normal
+}
+
+ul,ol {
+	list-style: none
+}
+
+img,fieldset {
+	border: 0
+}
+
+button {
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	cursor: pointer
+}
+
+legend,caption {
+	display: none;
+	overflow: hidden;
+	height: 0;
+	font-size: 0;
+	line-height: 0
+}
+
+a {
+	text-decoration: none
+}
+
+a:visited {
+	text-decoration: none
+}
+
+a:hover {
+	text-decoration: underline
+}
+
+/* slide */
+.slides {
+	position: relative;
+	width: 500px
+}
+
+.slides .slide {
+	overflow: hidden;
+	position: relative;
+	width: 500px;
+	height: 312px
+}
+
+.slides .slide li {
+	display: block;
+	width: 500px;
+	height: 312px
+}
+
+.slides .slide li a {
+	display: block
+}
+
+.slides a.prev,.slides a.next {
+	display: inline-block;
+	z-index: 100;
+	overflow: hidden;
+	position: absolute;
+	top: 10px;
+	width: 14px;
+	height: 14px;
+	background: url(../../img/slide/sp_page.gif) 0 0 no-repeat;
+	line-height: 999px;
+	vertical-align: top
+}
+
+.slides a.prev {
+	right: 25px;
+	background-position: 0 0
+}
+
+.slides a.prev:hover {
+	background-position: 0 -20px
+}
+
+.slides a.next {
+	right: 10px;
+	width: 15px;
+	background-position: -20px 0
+}
+
+.slides a.next:hover {
+	background-position: -20px -20px
+}
+
+.slides .page {
+	z-index: 100;
+	position: absolute;
+	top: 140px;
+	left: 0;
+	width: 500px;
+	text-align: center;
+	list-style: none
+}
+
+.slides .page li {
+	display: inline-block;
+	_display: inline;
+	margin: 0 1px;
+	_zoom: 1
+}
+
+.slides .page li a {
+	display: block;
+	overflow: hidden;
+	width: 12px;
+	height: 12px;
+	background: url(../../img/slide/sp_page.png) 0 0 no-repeat;
+	line-height: 999px;
+	vertical-align: top
+}
+
+.slides .page li.current a {
+	background-position: 0 -12px
+}
+
+.slides2 {
+	position: relative;
+	width: 500px
+}
+
+.slides2 .slide {
+	overflow: hidden;
+	position: relative;
+	width: 500px;
+	height: 312px
+}
+
+.slides2 .slide li {
+	display: block;
+	width: 500px;
+	height: 312px
+}
+
+.slides2 .slide li a {
+	display: block
+}
+
+.slides2 .page {
+	z-index: 100;
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	height: 12px;
+	list-style: none
+}
+
+.slides2 .page li {
+	display: inline-block;
+	_display: inline;
+	margin: 0 1px;
+	_zoom: 1
+}
+
+.slides2 .page li a {
+	display: block;
+	overflow: hidden;
+	width: 12px;
+	height: 12px;
+	border: 1px solid #e7e7e7;
+	background: #fff;
+	color: #999;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 11px;
+	line-height: 12px;
+	text-align: center
+}
+
+.slides2 .page li a:hover {
+	text-decoration: none
+}
+
+.slides2 .page li.current a {
+	border: 1px solid #6d9506;
+	background: #6d9506;
+	color: #fff;
+	font-weight: bold
+}
+
+
+
+
+.slides2 a.prev,.slides2 a.next {
+	display: inline-block;
+	z-index: 100;
+	overflow: hidden;
+	position: absolute;
+	top: 10px;
+	width: 14px;
+	height: 14px;
+	background: url(../../img/slide/sp_page.gif) 0 0 no-repeat;
+	line-height: 999px;
+	vertical-align: top
+}
+
+.slides2 a.prev {
+	right: 25px;
+	background-position: 0 0
+}
+
+.slides2 a.prev:hover {
+	background-position: 0 -20px
+}
+
+.slides2 a.next {
+	right: 10px;
+	width: 15px;
+	background-position: -20px 0
+}
+
+.slides2 a.next:hover {
+	background-position: -20px -20px
+}

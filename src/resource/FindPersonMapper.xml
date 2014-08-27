@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="findPersonMapper">
+	<!-- Email로 ID 조회 -->
+	<select id="nurse.login.dao.LoginDAO.findID" parameterType="String" resultType="String">
+		select ID from NURSE where email = #{email}
+	</select>
+	<!-- Name과 Email로 pwd 조회 -->
+	<select id="nurse.login.dao.LoginDAO.findPWD" parameterType="nurse.login.model.FindVO" resultType="String">
+		select PWD from NURSE where EMAIL = #{email} and ID = #{id}
+	</select>
+</mapper>
